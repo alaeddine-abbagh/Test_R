@@ -2,7 +2,7 @@ Package: Coursera
 Title: Number of accidents for 2015,2014,2013 per month
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Alaeddine"
+    person(given = "Alaeddine",
            family = "Sabbagh",
            role = c("aut", "cre"),
            email = "sabbaghalaeddine@gmail.com",
