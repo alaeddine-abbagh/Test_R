@@ -5,8 +5,11 @@
 #' This function reads dataset.
 #'
 #' @param filename path of the dataset
-#' 
+#'
 #' @return This function returns a dataset in the tbl form
+#'
+#' @importFrom readr read_csv
+#' @importFrom dplyr tbl_df
 #'
 #' @examples
 #' x <- fars_read("accident_2015.csv")
@@ -19,9 +22,9 @@ fars_read <- function(filename) {
   if(!file.exists(filename))
     stop("file '", filename, "' does not exist")
   data <- suppressMessages({
-    readr::read_csv(filename, progress = FALSE)
+    read_csv(filename, progress = FALSE)
   })
-  dplyr::tbl_df(data)
+   tbl_df(data)
 }
 
 #' -------------------------------------------------------------------------
@@ -30,8 +33,8 @@ fars_read <- function(filename) {
 #'
 #' This function prints filename with a given year.
 #'
-#' @param year the year with which  the filename should be created 
-#' 
+#' @param year the year with which  the filename should be created
+#'
 #' @return prints the created filename
 #'
 #' @examples
@@ -52,11 +55,11 @@ make_filename <- function(year) {
 #' fars_read_years
 #' -------------------------------------------------------------------------
 #'
-#' This function read multiple datasets with different given years, and adds a colomn containing the input year. 
+#' This function read multiple datasets with different given years, and adds a colomn containing the input year.
 #'
 #' @param years a vector of years
-#' 
-#' @return this function returns datasets corresponding to given years, 
+#'
+#' @return this function returns datasets corresponding to given years,
 #'  after adding a year colomn, and selecting month and year colomn
 #'
 #' @examples
@@ -73,7 +76,7 @@ fars_read_years <- function(years) {
                         file <- make_filename(year)
                         tryCatch({
                           dat <- fars_read(file)
-                          dplyr::mutate(dat, year = year) %>% 
+                          dplyr::mutate(dat, year = year) %>%
                             dplyr::select(MONTH, year)
                         }, error = function(e) {
                           warning("invalid year: ", year)
@@ -87,25 +90,25 @@ fars_read_years <- function(years) {
 #' fars_read_years
 #' -------------------------------------------------------------------------
 #'
-#' This function counts number of observations for given years 
+#' This function counts number of observations for given years
 #'
-#' @param years a vector of years for which number of observations will be counted  
-#' 
+#' @param years a vector of years for which number of observations will be counted
+#'
 #' @return dataframe containing all given years as colomns and a count of observations per month for each year
 #'
 #' @examples
-#' x <- fars_summarize_years(c( "2015", "2014)) 
+#' x <- fars_summarize_years(c( "2015", "2014))
 #' x <- fars_summarize_years(c( "2015", "204)): error because 204 is not valid
 
-#' @imports(dplyr,%>%)  
+#' @imports(dplyr,%>%)
 #' @export
 
 
 
 fars_summarize_years <- function(years) {
   dat_list <- fars_read_years(years)
-  dplyr::bind_rows(dat_list) %>% 
-    dplyr::group_by(year, MONTH) %>% 
+  dplyr::bind_rows(dat_list) %>%
+    dplyr::group_by(year, MONTH) %>%
     dplyr::summarize(n = n()) %>%
     tidyr::spread(year, n)
 }
@@ -120,7 +123,7 @@ fars_summarize_years <- function(years) {
 #'
 #' @param state.num number of a state in the US
 #' @param year a given year
-#' 
+#'
 #' @return a plot of accidents' locations of a state
 #'
 #' @examples
@@ -132,7 +135,7 @@ fars_map_state <- function(state.num, year) {
   filename <- make_filename(year)
   data <- fars_read(filename)
   state.num <- as.integer(state.num)
-  
+
   if(!(state.num %in% unique(data$STATE)))
     stop("invalid STATE number: ", state.num)
   data.sub <- dplyr::filter(data, STATE == state.num)
