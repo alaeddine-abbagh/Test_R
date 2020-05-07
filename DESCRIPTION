@@ -6,7 +6,7 @@ Authors@R:
            family = "Sabbagh",
            role = c("aut", "cre"),
            email = "sabbaghalaeddine@gmail.com",
-           file = "funacka"           
+           file = "funacka")            
 Description: This package calculates the number of accidents for three years 2015,2014,2013 for each month
 License: `use_mit_license()`
 Encoding: UTF-8
