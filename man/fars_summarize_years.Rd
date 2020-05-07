@@ -17,6 +17,6 @@ dataframe containing all given years as colomns and a count of observations per 
 This function counts number of observations for given years
 }
 \examples{
-x <- fars_summarize_years(c( "2015", "2014)) 
+x <- fars_summarize_years(c( "2015", "2014))
 x <- fars_summarize_years(c( "2015", "204)): error because 204 is not valid
 }
