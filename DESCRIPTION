@@ -1,19 +1,18 @@
-Package: Coursera
-Title: Number of accidents for 2015,2014,2013 per month
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Alaeddine",
-           family = "Sabbagh",
-           role = c("aut", "cre"),
-           email = "sabbaghalaeddine@gmail.com",
-           file = "funacka")            
-Description: This package calculates the number of accidents for three years 2015,2014,2013 for each month
-License: `use_mit_license()`
+Package: funacka
+Type: Package
+Title: Utilies for mapping FARS data 
+Version: 0.1.1
+Author: Alaeddine Sabbagh
+Maintainer: Alaeddine Sabbagh
+Description: This package reads FARS data and plots a map. This is an excercise from Coursera course "Building R Packages".
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Imports: 
+    dplyr, tidyr, maps, readr
 Suggests: 
+    testthat,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
